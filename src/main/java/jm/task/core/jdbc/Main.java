@@ -1,6 +1,5 @@
 package jm.task.core.jdbc;
 
-import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.service.UserServiceImpl;
 
 public class Main {
@@ -15,7 +14,7 @@ public class Main {
         userService.saveUser("Andrey", "Pavlov", (byte) 25);
         userService.saveUser("Ekaterina", "Morozova", (byte) 26);
 
-        for (User user: userService.getAllUsers()) {
+        for (var user: userService.getAllUsers()) {
             System.out.println(user);
         }
 

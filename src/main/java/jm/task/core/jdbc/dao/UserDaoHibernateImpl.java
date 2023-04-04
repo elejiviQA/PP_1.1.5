@@ -17,7 +17,7 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public void createUsersTable() {
         Session session = null;
-        Transaction transaction = null;
+        Transaction transaction;
 
         try {
             session = Util.getSessionFactory().openSession();
@@ -32,9 +32,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback(); //rollback for DDL?
-            }
+            // if (transaction != null) { transaction.rollback(); } rollback for DDL?
             throw new RuntimeException(e);
         } finally {
             try {
@@ -52,7 +50,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public void dropUsersTable() {
 
         Session session = null;
-        Transaction transaction = null;
+        Transaction transaction;
 
         try {
             session = Util.getSessionFactory().openSession();
@@ -64,9 +62,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
             transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback(); //rollback for DDL?
-            }
+            // if (transaction != null) { transaction.rollback(); } rollback for DDL?
             throw new RuntimeException(e);
         } finally {
             try {

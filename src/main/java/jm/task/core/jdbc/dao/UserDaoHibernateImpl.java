@@ -2,6 +2,7 @@ package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
+
 import org.hibernate.Transaction;
 
 import java.util.List;
@@ -103,7 +104,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
         try (var session = Util.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.createQuery("delete from User").executeUpdate();
+            session.createNativeQuery("TRUNCATE `live`.`users`", User.class).executeUpdate();
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {

@@ -97,14 +97,13 @@ public class UserDaoHibernateImpl implements UserDao {
     }
 
     @Override
-    // I'm confused..
     public void cleanUsersTable() {
 
         Transaction transaction = null;
 
         try (var session = Util.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.createNativeQuery("truncate table users").executeUpdate();
+            session.createQuery("delete from User").executeUpdate();
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {

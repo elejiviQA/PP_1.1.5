@@ -104,7 +104,15 @@ public class UserDaoHibernateImpl implements UserDao {
 
         try (var session = Util.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.createNativeQuery("TRUNCATE `live`.`users`", User.class).executeUpdate();
+            session.createQuery("delete from User").executeUpdate();
+            // Я реально не понимаю. createQuery вроде как устаревший,
+            // а его перегруженная версия не хочет работать выдает Exception:
+            // createQuery("delete from User", User.class)
+            // Или я совсем не понимаю и не те аргументы ему даю.
+            // Я уже не знаю что читать, и как написать
+            // Уже и так и сяк и кверху
+            // Может надо как-то по-другому, а я понятия не имею
+            // Я себе уже голову сломал и прожёг ОЧЕНЬ много времени..
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {

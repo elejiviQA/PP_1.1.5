@@ -2,9 +2,7 @@ package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
-
 import org.hibernate.Transaction;
-
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
@@ -104,17 +102,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
         try (var session = Util.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.createQuery("delete from User").executeUpdate();
-            // Я реально не понимаю. createQuery вроде как устаревший,
-            // а его перегруженная версия не хочет работать выдает Exception:
-            // createQuery("delete from User", User.class)
-            // Пытался понять что не так
-            // Вероятно, я совсем не понимаю, и может не те аргументы ему даю
-            // Я уже не знаю что читать, и каким способом написать этот метод очистки
-            // Уже и так и сяк и кверху
-            // Может надо как-то по-другому, а я понятия не имею
-            // Я себе уже голову сломал и прожёг ОЧЕНЬ много времени..
-            // Кря
+             session.createQuery("delete from User", null).executeUpdate();
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {

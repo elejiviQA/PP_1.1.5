@@ -102,7 +102,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
         try (var session = Util.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-             session.createQuery("delete from User", null).executeUpdate();
+             session.createQuery("delete from User", User.class).executeUpdate(); // У меня это не проходит тесты
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
